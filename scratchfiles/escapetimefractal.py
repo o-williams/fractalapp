@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 # Class Definition/Name of Object - not much to worry about here
-class EscapeTimeFractal():
+class EscapeTimeFractal:
     """
     Quick note on data types:
                                 You'll notice below that I've used 'tuples'. Tuples are a data type in Python that are
