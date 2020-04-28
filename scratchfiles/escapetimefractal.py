@@ -2,6 +2,9 @@
 # This file defines the EscapeTimeFractal object which is the main representation of the images we are trying to create.
 ########################################################################################################################
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 # Class Definition/Name of Object - not much to worry about here
 class EscapeTimeFractal:
     """
@@ -71,19 +74,34 @@ class EscapeTimeFractal:
         self.domain = domain
         self.resolution = resolution
 
-        # Without doing this, the variables 'domain' and 'resolution' will only be usable within this init method. We
-        # will likely need to use 'domain' and 'resolution' elsewhere in the code, so adding them to self allows us to
-        # access that information by typing self.domain or self.resolution
+        # Build initial ones array
+        self.rgbvalues = np.ones(resolution)
+        self.oldzs = np.zeros(resolution) + (1j)*0
 
-    # Examples of methods that are not within the above init method but may need to access domain and resolution:
-    def getdomain_good(self):
-        return self.domain # this way works and is correct
+        # Build complex plane
+        self.realvalues = np.linspace(domain[0][0], domain[0][1], resolution[0])
+        self.complexvalues = np.linspace(domain[1][0], domain[1][1], resolution[1])
+        self.R, self.C = np.meshgrid(self.realvalues, self.complexvalues)
 
-    def getdomain_bad(self):
-        return domain # this way does not work - note the red squigglies
+    def iterate_image(self):
 
-    def getresolution_good(self):
-        return self.resolution # this way works and is correct
+        for i,row in enumerate(self.rgbvalues):
+            for j,entry in enumerate(row):
 
-    def getresolution_bad(self):
-        return resolution
+                c = self.R[i][j] + (1j)*self.C[i][j]
+                oldz = self.oldzs[i][j]
+                newz = (oldz)**3 + c
+
+                self.oldzs[i][j] = newz
+
+                if np.absolute(newz) > 2:
+                    self.rgbvalues[i][j] = 0
+
+    def show_image(self):
+
+        plt.pcolormesh(self.rgbvalues)
+        plt.axes().set_aspect('equal')  # set the x and y axes to the same scale
+        plt.xticks([])  # remove the tick marks by setting to an empty list
+        plt.yticks([])  # remove the tick marks by setting to an empty list
+        plt.axes().invert_yaxis()  # invert the y-axis so the first row of data is at the top
+        plt.show()
