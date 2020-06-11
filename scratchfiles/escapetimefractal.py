@@ -8,30 +8,6 @@ import matplotlib.pyplot as plt
 # Class Definition/Name of Object - not much to worry about here
 class EscapeTimeFractal:
     """
-    Quick note on data types:
-                                You'll notice below that I've used 'tuples'. Tuples are a data type in Python that are
-                                *pretty much* lists, but they are immutable meaning once they are set they cannot be
-                                changed, i.e.
-
-                                You could define a list
-                                l = [1, 2, 3, 4, 5] *use square brackets for lists
-
-                                and a tuple
-                                t = (1, 2, 3, 4, 5) *use parenthesis for tuples
-
-                                and then change the first (zeroth in Python) element of the list l from 1 to 10 using
-                                l[0] = 10
-                                so that if you printed l, you would see
-                                [10, 2, 3, 4, 5]
-
-                                If you try the same for a tuple, the line
-                                t[0] = 10
-                                will return
-                                "TypeError: 'tuple' object does not support item assignment"
-                                and if you printed t you would still see
-                                (1, 2, 3, 4, 5)
-
-                                It is good practice to have initialization parameters be immutable.
     OBJECT USAGE:
     _____________________________________________
     Initializing EscapeTimeFractal object:
@@ -90,7 +66,7 @@ class EscapeTimeFractal:
 
                 c = self.R[i][j] + (1j)*self.C[i][j]
                 oldz = self.oldzs[i][j]
-                newz = (oldz)**3 + c
+                newz = (oldz)**2 + c
 
                 self.oldzs[i][j] = newz
 
